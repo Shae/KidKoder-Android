@@ -31,13 +31,13 @@ public class ChildList extends Activity {
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()){
-		case R.id.menu_home:
-			myToast("Home");
-			startActivity(new Intent(this, MainActivity.class));
+		case R.id.menu_quick:
+			myToast("Quick-Links");
+			startActivity(new Intent(this, QuickLinksActivity.class));
 			break;
 		case R.id.menu_add:
 			myToast("ADD");
-			startActivity(new Intent(this, ChildDataPage.class));
+			startActivity(new Intent(this, ChildDataADD.class));
 			break;
 		}
 	return super.onMenuItemSelected(featureId, item);

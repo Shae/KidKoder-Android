@@ -5,16 +5,16 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/TextView04"
+        android:id="@+id/ParseAppIdTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="School Contact Number"
+        android:text="@string/parse_com_application_id_"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/EditText04"
+        android:id="@+id/etAppID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -22,19 +22,22 @@
         android:layout_marginRight="10dp"
         android:background="@android:color/white"
         android:ems="10"
-        android:inputType="phone" />
+        android:inputType="text"
+        android:text="@string/app_id_num"
+        android:textColor="@android:color/black" />
 
+    
     <TextView
-        android:id="@+id/TextView03"
+        android:id="@+id/ClientKeyTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="Local Fire Dept Emergency #"
+        android:text="@string/parse_com_client_key_"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/EditText03"
+        android:id="@+id/etClientKey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -42,19 +45,23 @@
         android:layout_marginRight="10dp"
         android:background="@android:color/white"
         android:ems="10"
-        android:inputType="phone" />
-
+        android:inputType="text"
+        android:text="@string/app_key_num"
+        android:textColor="@android:color/black" />
+    
+    
+ <!--    
     <TextView
         android:id="@+id/TextView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="Local Police #"
+        android:text="Local School #"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/EditText01"
+        android:id="@+id/etSchoolNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -62,13 +69,13 @@
         android:layout_marginRight="10dp"
         android:background="@android:color/white"
         android:ems="10"
-        android:inputType="phone" >
+        android:inputType="phone" />
 
-        <requestFocus />
-    </EditText>
+         -->
+   <!-- 
 
     <TextView
-        android:id="@+id/TextView02"
+        android:id="@+id/DSHSNumTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -77,7 +84,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/EditText02"
+        android:id="@+id/etDSHSNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -118,5 +125,5 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="Notification" />
-
+ -->
 </LinearLayout>

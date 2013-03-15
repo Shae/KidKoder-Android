@@ -9,5 +9,9 @@
     <string name="quick_links">Quick-Links</string>
     <string name="settings">Settings</string>
     <string name="allergies">Allergies</string>
+    <string name="parse_com_application_id_">PARSE.COM Application ID #</string>
+    <string name="parse_com_client_key_">PARSE.COM Client Key #</string>
+    <string name="app_id_num">sF8m2jJo7c3kQoenTq9UG67Rk3pnPEw7prrf4ZfR</string>
+    <string name="app_key_num">OnuGanjP6xKwQV7JOUC6wUMsmGiUlbxhyitxHS1P</string>
 
 </resources>
