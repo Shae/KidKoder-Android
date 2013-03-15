@@ -42,11 +42,12 @@ public class MainActivity extends Activity {
       			
       			}else{
       			    Log.d("TAG", "Setup default preferences");
+      			    myToast("PLEASE ADJUST USER SETTINGS");
       			}
       	
       	
-        Parse.initialize(this, "sF8m2jJo7c3kQoenTq9UG67Rk3pnPEw7prrf4ZfR", "OnuGanjP6xKwQV7JOUC6wUMsmGiUlbxhyitxHS1P"); 
-		
+        //Parse.initialize(this, "sF8m2jJo7c3kQoenTq9UG67Rk3pnPEw7prrf4ZfR", "OnuGanjP6xKwQV7JOUC6wUMsmGiUlbxhyitxHS1P"); 
+        Parse.initialize(this, appID , appKey); 
 		
 		Button kidsBtn = (Button)findViewById(R.id.btnChildren);
 		kidsBtn.setOnClickListener(new OnClickListener() {
@@ -104,11 +105,12 @@ public class MainActivity extends Activity {
 
 	private void loadSettings(){
 		SharedPreferences prefs = getSharedPreferences("myprefs",Context.MODE_PRIVATE); 
-			appID = prefs.getString("APP_ID", "");
-			appKey = prefs.getString("APP_KEY", "");
-			
+			appID = prefs.getString("APP_ID", "default Value");
 			Log.i("IDnum", appID);
+			
+			appKey = prefs.getString("APP_Key", "default Value");
 			Log.i("KEY", appKey);
+
 	}  //  END loadSettings
 	
 	public void notifyMe(){  
