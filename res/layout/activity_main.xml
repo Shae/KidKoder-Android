@@ -2,10 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+	android:background="@drawable/kk_bg"
 
     tools:context=".MainActivity" >
 
-<!-- <ImageView
+	<ImageView
         android:id="@+id/imageView1"
         android:contentDescription="@string/company_logo"
         android:layout_width="wrap_content"
@@ -13,17 +14,17 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-
-        android:src="@drawable/lwd_color_logo" /> -->
+        android:src="@drawable/lwd_color_logo" /> 
 
     <Button
         android:id="@+id/btnChildren"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="20dp"
         android:alpha="1"
         android:text="@string/children" />
 
