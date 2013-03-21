@@ -1,8 +1,6 @@
 package com.klusman.kidkoder;
 
 
-import java.io.File;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Notification;
@@ -35,16 +33,8 @@ public class MainActivity extends Activity {
       	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
       	setContentView(R.layout.activity_main);
       	
-      	File f = new File("/data/data/com.klusman.kidkoder/shared_prefs/myprefs.xml");
-      			if (f.exists()){
-      			    Log.d("TAG", "SharedPreferences myprefs : exist");
-      				loadSettings();
-      			
-      			}else{
-      			    Log.d("TAG", "Setup default preferences");
-      			    myToast("PLEASE ADJUST USER SETTINGS");
-      			}
-      	
+      	settingsCheck();
+
       	
         //Parse.initialize(this, "sF8m2jJo7c3kQoenTq9UG67Rk3pnPEw7prrf4ZfR", "OnuGanjP6xKwQV7JOUC6wUMsmGiUlbxhyitxHS1P"); 
         Parse.initialize(this, appID , appKey); 
@@ -88,13 +78,11 @@ public class MainActivity extends Activity {
 		        startActivity(intent);
 			}
 		});
-		
-		
-		
-		
-		
+	
 	}// End onCreate
 
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
@@ -103,29 +91,53 @@ public class MainActivity extends Activity {
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	private void settingsCheck(){
+		SharedPreferences preferences = this.getSharedPreferences("myprefs", 0);
+      	String value1 = preferences.getString("APP_ID",null);
+      	String value2 = preferences.getString("APP_Key",null);
+      	
+      	if ((value1 == null) || (value2 == null)) { 
+      	    Log.d("TAG", "Setup default preferences");  //LOG
+		    myToast("PLEASE SET PARSE.COM VALUES UNDER SETTINGS");  //TOAST
+		    notifyMe();  //VIBRATE
+      	} else {
+      		Log.d("TAG", "SharedPreferences myprefs : exist");  // LOG
+      		loadSettings();  //LOAD 
+      	}
+	}
+	
+	
 	private void loadSettings(){
 		SharedPreferences prefs = getSharedPreferences("myprefs",Context.MODE_PRIVATE); 
-			appID = prefs.getString("APP_ID", "default Value");
-			Log.i("IDnum", appID);
-			
-			appKey = prefs.getString("APP_Key", "default Value");
-			Log.i("KEY", appKey);
-
+		appID = prefs.getString("APP_ID", "default Value");
+		Log.i("IDnum", appID);
+		
+		appKey = prefs.getString("APP_Key", "default Value");
+		Log.i("KEY", appKey);
+		
 	}  //  END loadSettings
+	
+	
 	
 	public void notifyMe(){  
 		NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		Notification note = new Notification();
 		note.defaults = Notification.DEFAULT_VIBRATE;
 		nm.notify(VIB_NOTE_ID, note);
-		
 	}
 	
 	public void myToast(String text){  
 		CharSequence textIN = text;
 		int duration = Toast.LENGTH_SHORT;
 		Toast toast = Toast.makeText(MainActivity.this, textIN, duration);
-		toast.setGravity(Gravity.BOTTOM, 0, 0);
+		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	};// end myToast
 }

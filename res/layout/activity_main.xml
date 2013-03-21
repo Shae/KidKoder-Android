@@ -7,7 +7,7 @@
     tools:context=".MainActivity" >
 
 	<ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageGenderIcon"
         android:contentDescription="@string/company_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         android:id="@+id/btnChildren"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
+        android:layout_below="@+id/imageGenderIcon"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

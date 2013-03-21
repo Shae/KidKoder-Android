@@ -13,5 +13,7 @@
     <string name="parse_com_client_key_">PARSE.COM Client Key #</string>
     <string name="app_id_num">sF8m2jJo7c3kQoenTq9UG67Rk3pnPEw7prrf4ZfR</string>
     <string name="app_key_num">OnuGanjP6xKwQV7JOUC6wUMsmGiUlbxhyitxHS1P</string>
+    <string name="gender_icon">gender Icon</string>
+    <string name="child_name_default">Child Name</string>
 
 </resources>

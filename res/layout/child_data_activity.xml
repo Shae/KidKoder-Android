@@ -8,11 +8,12 @@
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical" >
 	
-	    <QuickContactBadge
+	    <ImageView
 	        android:id="@+id/quickContactBadge1"
-	        android:layout_width="150dp"
+	        android:contentDescription="kidPhoto"
+	        android:layout_width="wrap_content"
 	        android:layout_height="150dp"
-	        android:background="@android:color/white"
+	        android:background="@drawable/photo3"
 	        android:layout_gravity="center_horizontal"
 	        android:layout_marginTop="20dp" />
 	
@@ -31,10 +32,10 @@
 	        android:layout_marginBottom="10dp"
 	        android:layout_marginLeft="10dp"
 	        android:layout_marginRight="10dp"
-	        android:textColor="@android:color/black"
 	        android:background="@android:color/white"
 	        android:ems="10"
-	        android:inputType="textPersonName" />
+	        android:inputType="textPersonName"
+	        android:textColor="@android:color/black" />
 	
 	    <TextView
 	        android:id="@+id/tvLNameTitle"
@@ -99,17 +100,62 @@
 	        android:textColor="@android:color/black"
 	        android:background="@android:color/white"
 	        android:ems="10"
-	        android:inputType="date" >
-	
-	        <requestFocus />
-	    </EditText>
-	
+	        android:inputType="date"/>
+	        
 	    <CheckBox
 	        android:id="@+id/boxEnrolled"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="10dp"
 	        android:text="Enrolled" />
+
+  		<CheckBox
+  		    android:id="@+id/boxAllergies"
+  		    android:layout_width="wrap_content"
+  		    android:layout_height="wrap_content"
+  		    android:layout_marginLeft="10dp"
+  		    android:text="Allergies" />
+	    
+	    <TextView
+	        android:id="@+id/tvAllergiesTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dp"
+	        android:text="List Allergies"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	    <EditText
+	        android:id="@+id/etAllergiesField"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:background="@android:color/white"
+	        android:ems="10"
+	        android:enabled="false"
+	        android:textColor="@android:color/black" />
+	    
+	    <TextView
+	        android:id="@+id/tvEmerContact"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dp"
+	        android:text="Emergency Contact Number"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
 	
+	    <EditText
+	        android:id="@+id/etEmergencyNum"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:textColor="@android:color/black"
+	        android:background="@android:color/white"
+	        android:ems="10"
+	        android:inputType="phone"/>
+
 	</LinearLayout>
+	
+	
+	
 </ScrollView>
