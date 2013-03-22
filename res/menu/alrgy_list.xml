@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+        <item
+        android:id="@+id/menu_quick"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="Quick-Links"/>
+
+
+        <item
+        android:id="@+id/menu_child_list"
+        android:orderInCategory="2"
+        android:showAsAction="always"
+        android:title="Child List"/>
+</menu>

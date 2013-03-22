@@ -44,12 +44,13 @@ public final class R {
         public static final int imageGenderIcon=0x7f070000;
         public static final int imageKidAddData=0x7f070008;
         public static final int listView1=0x7f070005;
-        public static final int menu_add=0x7f070028;
-        public static final int menu_edit=0x7f070029;
-        public static final int menu_home=0x7f070027;
-        public static final int menu_quick=0x7f07002a;
-        public static final int menu_reset=0x7f07002b;
-        public static final int menu_save=0x7f07002c;
+        public static final int menu_add=0x7f07002a;
+        public static final int menu_child_list=0x7f070028;
+        public static final int menu_edit=0x7f07002b;
+        public static final int menu_home=0x7f070029;
+        public static final int menu_quick=0x7f070027;
+        public static final int menu_reset=0x7f07002c;
+        public static final int menu_save=0x7f07002d;
         public static final int menu_settings=0x7f070026;
         public static final int radioFemale=0x7f070010;
         public static final int radioMale=0x7f07000f;
@@ -80,9 +81,10 @@ public final class R {
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;
-        public static final int kid_data_menu=0x7f060001;
-        public static final int kid_list=0x7f060002;
-        public static final int kid_new_data=0x7f060003;
+        public static final int alrgy_list=0x7f060001;
+        public static final int kid_data_menu=0x7f060002;
+        public static final int kid_list=0x7f060003;
+        public static final int kid_new_data=0x7f060004;
     }
     public static final class string {
         public static final int allergies=0x7f040007;

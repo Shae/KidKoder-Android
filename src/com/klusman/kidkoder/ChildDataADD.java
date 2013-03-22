@@ -340,9 +340,6 @@ public class ChildDataADD extends Activity {
 		childObject.put("enrolledBool", enrolledBool);
 			Log.i("save", enrolledBool.toString());
 			
-//		childObject.put("allergiesBool", allergiesBool);
-//			Log.i("save", allergiesBool.toString());
-			
 		childObject.put("allergiesList", allerList);
 			Log.i("save", allerList);
 			

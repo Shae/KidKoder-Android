@@ -49,7 +49,7 @@ public class AllergyList extends ListActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.kid_list, menu);
+		getMenuInflater().inflate(R.menu.alrgy_list, menu);
 		return true;
 	}// END onCreateOptionsMenu
 	
@@ -60,9 +60,8 @@ public class AllergyList extends ListActivity {
 		case R.id.menu_quick:
 			startActivity(new Intent(this, QuickLinksActivity.class));
 			break;
-		case R.id.menu_add:
-
-			startActivity(new Intent(this, ChildDataADD.class));
+		case R.id.menu_child_list:
+			startActivity(new Intent(this, ChildList.class));
 			break;
 		}
 	return super.onMenuItemSelected(featureId, item);
@@ -96,7 +95,11 @@ public class AllergyList extends ListActivity {
 						Log.i("PULLED OBJ", "step 2");
 					if (e == null) {
 							Log.i("PULLED OBJ", "step 3");
+							String algryX = object.getString("allergiesList");
+							Log.i("ALRGYX", algryX);
 						
+							
+							
 							kidlinList.add(new Kid(
 									object.getObjectId().toString(), 
 									object.getString("fName"), 
@@ -108,6 +111,7 @@ public class AllergyList extends ListActivity {
 									object.getString("allergiesList"), 
 									object.getString("contactNum")
 									));
+							
 						
 
 						
@@ -130,7 +134,7 @@ public class AllergyList extends ListActivity {
 			setListAdapter(new myArrayAdapterAllergy(this, kidlinList));  // works
 		}else{
 			notifyMe();
-			myToast("Please add Children");
+			myToast("No Children with Allergies");
 		}
 		
 	}

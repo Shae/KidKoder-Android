@@ -9,11 +9,13 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ChildInfo extends Activity {
 	String fname;
@@ -103,7 +105,7 @@ public class ChildInfo extends Activity {
 			startActivity(new Intent(this, ChildDataADD.class));
 			break;
 		case R.id.menu_edit:
-			startActivity(new Intent(this, ChildDataADD.class));
+			myToast("EDIT FEATURE CURRENTLY UNDER CONSTRUCTION");
 			break;
 		case R.id.menu_settings:
 			startActivity(new Intent(this, SettingsActivity.class));
@@ -114,4 +116,12 @@ public class ChildInfo extends Activity {
 		}
 	return super.onMenuItemSelected(featureId, item);
 	}
+	
+	public void myToast(String text){  
+		CharSequence textIN = text;
+		int duration = Toast.LENGTH_SHORT;
+		Toast toast = Toast.makeText(ChildInfo.this, textIN, duration);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
+	};// end myToast
 }
