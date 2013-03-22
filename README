@@ -1,0 +1,34 @@
+Current Status of Application
+	ON SCHEDULE
+
+
+Working Features
+	ONLINE DATABASE
+	ALLERGY TRACKING
+	CUSTOM NAVIGATION
+	CUSTOM CELLS
+	CAMERA FUNCTION (Working on cloud save)
+	SETTINGS
+	COMPANY LOGO
+	QUICK-LINKS
+
+
+Placeholder/Data TODO
+	More branding
+	Check in/out
+	enable phone
+	Multiple Device Size resources
+	Network Handling
+	Camera save
+	input field for custom local school web address
+	Delete child from DB
+	
+
+Use Guidelines
+	Edit Feature under construction
+	No Validation this week
+
+
+Special Instructions
+	All of the list views work, but the load time varies dramatically 
+	depending on connection and server status
