@@ -21,10 +21,10 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:ems="10"
-        android:inputType="text"
         android:text="@string/app_id_num"
         android:textColor="@android:color/white"
-        android:textSize="12sp" />
+        android:textSize="12sp" 
+        android:inputType="textNoSuggestions"/>
     
     <TextView
         android:id="@+id/ClientKeyTitle"
@@ -43,10 +43,10 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:ems="10"
-        android:inputType="text"
         android:text="@string/app_key_num"
         android:textColor="@android:color/white"
-        android:textSize="12sp" />
+        android:textSize="12sp" 
+        android:inputType="textNoSuggestions"/>
     
  <!--    
     <TextView

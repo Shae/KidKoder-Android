@@ -12,19 +12,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class myArrayAdapter extends ArrayAdapter<Kid>{
+public class myArrayAdapterAllergy extends ArrayAdapter<Kid>{
 
 	private final Context _context;
 	//private final String[] values;
 	String appID;
 	String appKey;
 	TextView textView;
+	TextView algry;
+	
 	private final ArrayList<Kid> _kidlinList ;
 	//private final Kid[] _myKidsArray;
 
 	
-	public myArrayAdapter(Context context, ArrayList<Kid> kidlinList) {
-		super(context, R.layout.cell, kidlinList);
+	public myArrayAdapterAllergy(Context context, ArrayList<Kid> kidlinList) {
+		super(context, R.layout.cell_allergy, kidlinList);
 		
 		Log.i("Array Adapter", "Initiated");
 		this._context = context;
@@ -37,19 +39,16 @@ public class myArrayAdapter extends ArrayAdapter<Kid>{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
  
-		View rowView = inflater.inflate(R.layout.cell, parent, false);
+		View rowView = inflater.inflate(R.layout.cell_allergy, parent, false);
+		
 		textView = (TextView) rowView.findViewById(R.id.tvALRGYChildName);
-		//Log.i("listIt", kidlinList.toString());
 		String name = _kidlinList.get(position).getFirstname() + " " + _kidlinList.get(position).getLastName();
-		String gender = _kidlinList.get(position).getGender();
 		textView.setText(name);
 		
-		ImageView gendIcon = (ImageView) rowView.findViewById(R.id.imageGenderIcon);
-//		
-		//textView.setText(values[position]);
-		if(gender.compareTo("Male")  == 0){
-			gendIcon.setImageResource(R.drawable.male2);
-		}
+		algry = (TextView) rowView.findViewById(R.id.tvALRGYs);
+		String allergies = _kidlinList.get(position).getAllergiesList();
+		algry.setText(allergies);
+	
 		
 
 		return rowView;
