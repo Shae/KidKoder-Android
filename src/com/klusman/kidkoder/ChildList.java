@@ -11,8 +11,9 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import android.app.Activity;
 import android.app.ListActivity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,7 +34,6 @@ public class ChildList extends ListActivity {
 	String appKey;
 	List<ParseObject> kidObjects;
 	ArrayList<Kid> kidlinList ;
-	//private Object[] myKidsArray;
 	String _id;
 	String _firstname;
 	String _lastname;
@@ -41,12 +41,12 @@ public class ChildList extends ListActivity {
 	String _phnum;
 	String _alrgList;
 	String _gend;
+	private final int VIB_NOTE_ID = 1;
 	
 	
 	
 	private ArrayList<String> kids = new ArrayList<String>();
 	private String[] myKidsIdArray = null;
-	private String[] KidsArray = {"danna", "louis", "ralph"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,21 +54,23 @@ public class ChildList extends ListActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
         		WindowManager.LayoutParams.FLAG_FULLSCREEN);
       	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-      	kidlinList = new ArrayList<Kid>();
       	loadSettings();
+      	
+      	kidlinList = new ArrayList<Kid>();
       	Parse.initialize(this, appID, appKey); 
       	
       	
       	getData();
-      	
-      	//myKidsArray = ;  // build a kids array STILL NEEDED
-      	
-		//setContentView(R.layout.child_list_activity);
 		
 	}
 	
 	private void setConstructor(){
-		setListAdapter(new myArrayAdapter(this, myKidsIdArray));  // works
+		if(kidlinList.size() > 0){
+			setListAdapter(new myArrayAdapter(this, kidlinList));  // works
+		}else{
+			notifyMe();
+			myToast("Please add Children");
+		}
 		
 	}
 	
@@ -81,6 +83,19 @@ public class ChildList extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
+		Intent intent = new Intent(this, ChildInfo.class);
+			intent.putExtra("FNAME", kidlinList.get(position).getFirstname());
+			intent.putExtra("LNAME", kidlinList.get(position).getLastName());
+			intent.putExtra("DOB", kidlinList.get(position).getBDay());
+			intent.putExtra("GENDER", kidlinList.get(position).getGender());
+			intent.putExtra("PHNUM", kidlinList.get(position).getEmergencyContact());
+			intent.putExtra("ALLERGIES", kidlinList.get(position).getAllergiesList());
+			intent.putExtra("ID", kidlinList.get(position).getChildID());
+		//Log.i("chosen", kidlinList.get(position).getFirstname());
+		
+		Log.i("CLICKED", String.valueOf(position));
+	
+		startActivity(intent);
 		
 	}  //  END onListItemClicked
 	
@@ -91,11 +106,15 @@ public class ChildList extends ListActivity {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()){
 		case R.id.menu_quick:
+			Log.i("CLICKED","Go to Quick Links");
 			startActivity(new Intent(this, QuickLinksActivity.class));
 			break;
 		case R.id.menu_add:
-
+			Log.i("CLICKED","Go to ADD Child");
 			startActivity(new Intent(this, ChildDataADD.class));
+			break;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsActivity.class));
 			break;
 		}
 	return super.onMenuItemSelected(featureId, item);
@@ -112,36 +131,13 @@ public class ChildList extends ListActivity {
 			Log.i("KEY", appKey);
 
 	}  //  END loadSettings
-	
-	
-	public void myToast(String text){  
-		CharSequence textIN = text;
-		int duration = Toast.LENGTH_SHORT;
-		Toast toast = Toast.makeText(ChildList.this, textIN, duration);
-		toast.setGravity(Gravity.BOTTOM, 0, 0);
-		toast.show();
-	};// end myToast
+
 	
 	
 	private void getObject(){
 
 		Log.i("Init getObj", "Start");
-//			ParseQuery query = new ParseQuery("ChildDB");
-//			//Log.i("PULLED OBJ", "step 1");
-//			query.getInBackground(id, new GetCallback() {  
-//				public void done(ParseObject object, ParseException e) {
-//					//Log.i("PULLED OBJ", "step 2");
-//					if (e == null) {
-//						//Log.i("PULLED OBJ", "step 3");
-//						String fName = object.getString("fName");
-//						String lName = object.getString("lName");
-//						Log.i("PULLED OBJ", fName + " " + lName);
-//						
-//					} else {
-//						Log.i("PULLED OBJ", "Something went wrong in GetObj");
-//					}
-//				}
-//			});
+//			
 		int x = myKidsIdArray.length;
 		Log.i("MyKids", String.valueOf(x));
 		for( int i = 0; i < x; i++){
@@ -155,9 +151,6 @@ public class ChildList extends ListActivity {
 						Log.i("PULLED OBJ", "step 2");
 					if (e == null) {
 							Log.i("PULLED OBJ", "step 3");
-//						String fName = object.getString("fName");
-//						String lName = object.getString("lName");
-//							Log.i("PULLED OBJ", fName + " " + lName);
 						
 							kidlinList.add(new Kid(
 									object.getObjectId().toString(), 
@@ -181,6 +174,7 @@ public class ChildList extends ListActivity {
 					} else {
 						Log.i("PULLED OBJ", "Something went wrong in GetObj");
 					}
+					setConstructor();
 				}
 			});
 		}		
@@ -208,12 +202,9 @@ public class ChildList extends ListActivity {
 							if (kids.size() > 0){  // turning the list into a string array
 					      		myKidsIdArray = kids.toArray(new String[kids.size()]);
 					      		getObject();  //works
-					      		setConstructor();
 					      	}else{
 					      		Log.i("Kids List Size", String.valueOf(kids.size()));
-					      	}
-					      	
-							
+					      	}	
 						} else {
 							String ee = e.toString();
 							Log.i("ERROR from PARSE", ee);
@@ -222,6 +213,22 @@ public class ChildList extends ListActivity {
 					}
 				});
 	}
+	
+	
+	public void notifyMe(){  
+		NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		Notification note = new Notification();
+		note.defaults = Notification.DEFAULT_VIBRATE;
+		nm.notify(VIB_NOTE_ID, note);
+	}
+	
+	public void myToast(String text){  
+		CharSequence textIN = text;
+		int duration = Toast.LENGTH_SHORT;
+		Toast toast = Toast.makeText(ChildList.this, textIN, duration);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
+	};// end myToast
 	
 }
 

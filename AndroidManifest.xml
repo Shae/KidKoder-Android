@@ -33,6 +33,7 @@
         <activity android:name=".ChildList" />
         <activity android:name=".QuickLinksActivity" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".ChildInfo" />
     </application>
 
 </manifest>

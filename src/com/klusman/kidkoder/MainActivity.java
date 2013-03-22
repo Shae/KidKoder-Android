@@ -1,6 +1,5 @@
 package com.klusman.kidkoder;
 
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Notification;
@@ -18,8 +17,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 import com.parse.Parse;
-
-
+//i<have>noidea=itryed(ILoveYouMore)!!!!!!  // Code written by Andrea A.K.A the Dark Haired Overlord
+//Leaving it in so she thinks shes cool LOL.  Think of it like an Easter Egg
 public class MainActivity extends Activity {
 
 	private final int VIB_NOTE_ID = 1;
@@ -89,14 +88,6 @@ public class MainActivity extends Activity {
 		return true;
 	}// END onCreateOptionsMenu
 
-
-
-	
-	
-	
-	
-	
-	
 	
 	private void settingsCheck(){
 		SharedPreferences preferences = this.getSharedPreferences("myprefs", 0);

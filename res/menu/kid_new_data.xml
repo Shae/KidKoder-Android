@@ -22,6 +22,6 @@
         android:id="@+id/menu_save"
         android:orderInCategory="3"
         android:showAsAction="always"
-        android:icon="@android:drawable/ic_menu_save"/>
+        android:title="SAVE"/>
         
 </menu>

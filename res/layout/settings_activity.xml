@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:text="@string/parse_com_application_id_"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -17,15 +17,14 @@
         android:id="@+id/etAppID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@android:color/white"
         android:ems="10"
         android:inputType="text"
         android:text="@string/app_id_num"
-        android:textColor="@android:color/black" />
-
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
     
     <TextView
         android:id="@+id/ClientKeyTitle"
@@ -43,12 +42,11 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@android:color/white"
         android:ems="10"
         android:inputType="text"
         android:text="@string/app_key_num"
-        android:textColor="@android:color/black" />
-    
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
     
  <!--    
     <TextView

@@ -2,9 +2,7 @@ package com.klusman.kidkoder;
 
 import java.io.ByteArrayOutputStream;
 
-import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.SaveCallback;
 
 import android.app.Activity;
 import android.content.Context;
@@ -43,7 +41,7 @@ public class ChildDataADD extends Activity {
 	EditText allergiesList;
 	EditText emergencyContactNum;
 	
-	CheckBox allergies;
+	//CheckBox allergies;
 	CheckBox enrolled;
 	
 	RadioGroup radioGend;
@@ -57,7 +55,7 @@ public class ChildDataADD extends Activity {
 	String emContactNum;
 	String gender;
 	Boolean enrolledBool;
-	Boolean allergiesBool;
+	//Boolean allergiesBool;
 	
 	Context _context;
 	byte[] dataPhoto;
@@ -129,16 +127,16 @@ public class ChildDataADD extends Activity {
 	        }
 	    });
 		
-		allergies = (CheckBox)findViewById(R.id.boxAllergies);
-		allergies.setOnFocusChangeListener(new OnFocusChangeListener() {          
-
-	        public void onFocusChange(View v, boolean hasFocus) {
-	            if(!hasFocus){
-	            	updateVars();
-	            }
-	               
-	        }
-	    });
+//		allergies = (CheckBox)findViewById(R.id.boxAllergies);
+//		allergies.setOnFocusChangeListener(new OnFocusChangeListener() {          
+//
+//	        public void onFocusChange(View v, boolean hasFocus) {
+//	            if(!hasFocus){
+//	            	updateVars();
+//	            }
+//	               
+//	        }
+//	    });  // Removed from Activity for now
 		
 		enrolled = (CheckBox)findViewById(R.id.boxEnrolled);
 		enrolled.setOnFocusChangeListener(new OnFocusChangeListener() {          
@@ -153,7 +151,7 @@ public class ChildDataADD extends Activity {
 		
 		radioGend = (RadioGroup)findViewById(R.id.RadioGrp);
 		radioGend.setOnFocusChangeListener(new OnFocusChangeListener() {          
-
+			
 	        public void onFocusChange(View v, boolean hasFocus) {
 	            if(!hasFocus){
 	            	updateVars();
@@ -162,7 +160,7 @@ public class ChildDataADD extends Activity {
 	        }
 	    });
 		
-		photo = (ImageView)findViewById(R.id.quickContactBadge1);
+		photo = (ImageView)findViewById(R.id.imageKidAddData);
 		photo.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -188,11 +186,26 @@ public class ChildDataADD extends Activity {
 			startActivity(new Intent(this, MainActivity.class));
 			break;
 		case R.id.menu_reset:
-			startActivity(new Intent(this, ChildDataADD.class));
+			first = null;
+			last = null;
+			bday = null;
+			allerList = null;
+			emContactNum = null;
+			gender = null;
+			enrolledBool = true;
+			//allergiesBool = false;
+			
+			fName.setText("");
+			lName.setText("");
+			DoB.setText("");
+			allergiesList.setText("");
+			emergencyContactNum.setText("");
 			break;
 		case R.id.menu_save:
 			validateEntries();
-			
+			break;
+		case R.id.menu_settings:
+			startActivity(new Intent(this, SettingsActivity.class));
 			break;
 		}
 	return super.onMenuItemSelected(featureId, item);
@@ -214,14 +227,25 @@ public class ChildDataADD extends Activity {
 	
 	private void updateVars(){
 		Log.i("UPDATE", "vars updated");
+		int index = radioGend.indexOfChild(findViewById(radioGend.getCheckedRadioButtonId()));
+		Log.i("RADIO GRP", String.valueOf(index));
+		
 		first = fName.getText().toString();
 		last = lName.getText().toString();
 		bday = DoB.getText().toString();
 		allerList = allergiesList.getText().toString();
 		emContactNum = emergencyContactNum.getText().toString();
-		gender = "Male";
-		enrolledBool = true;
-		allergiesBool = true;
+		
+		if(index == 0){
+			gender = "Male";
+		}else if(index == 1){
+			gender = "Female";
+		}else{
+			gender = "Male";
+		}
+		
+		enrolledBool = true;  // hardcoded until needed
+		//allergiesBool = false;  // hardcoded until needed
 
 	}
 	
@@ -268,7 +292,6 @@ public class ChildDataADD extends Activity {
 	    {
 	        case 0:
 	            break;
-
 	        case -1:
 	            onPhotoTaken();
 	            handleSmallCameraPhoto(data);
@@ -298,11 +321,8 @@ public class ChildDataADD extends Activity {
 //		final ParseFile photoFile = new ParseFile("photo.bmp", data);
 //		Log.i("saveDate", "ParseFile");
 //		photoFile.saveInBackground(new SaveCallback() {
-//			  public void done(ParseException e) {
-//				  
-//				  
-//				  }
-//				
+//			  public void done(ParseException e) {	  
+//				  }			
 //				});
 		ParseObject childObject = new ParseObject("ChildDB");
 		childObject.put("fName", first);
@@ -320,8 +340,8 @@ public class ChildDataADD extends Activity {
 		childObject.put("enrolledBool", enrolledBool);
 			Log.i("save", enrolledBool.toString());
 			
-		childObject.put("allergiesBool", allergiesBool);
-			Log.i("save", allergiesBool.toString());
+//		childObject.put("allergiesBool", allergiesBool);
+//			Log.i("save", allergiesBool.toString());
 			
 		childObject.put("allergiesList", allerList);
 			Log.i("save", allerList);
