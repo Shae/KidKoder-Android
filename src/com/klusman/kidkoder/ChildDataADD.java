@@ -2,7 +2,10 @@ package com.klusman.kidkoder;
 
 import java.io.ByteArrayOutputStream;
 
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 import android.app.Activity;
 import android.content.Context;
@@ -314,39 +317,28 @@ public class ChildDataADD extends Activity {
 	
 	private void saveData(){  
 		updateVars();
-		
 		Log.i("saveDate", "Function Initialized");
-//		byte[] data = convertBitmapToByteArray(_context, mImageBitmap);
-//		Log.i("saveDate", "Photo converted to byte");
-//		final ParseFile photoFile = new ParseFile("photo.bmp", data);
-//		Log.i("saveDate", "ParseFile");
-//		photoFile.saveInBackground(new SaveCallback() {
-//			  public void done(ParseException e) {	  
-//				  }			
-//				});
-		ParseObject childObject = new ParseObject("ChildDB");
-		childObject.put("fName", first);
-			Log.i("save", first);
-			
-		childObject.put("lName", last);
-			Log.i("save", last);
-			
-		childObject.put("bday", bday);
-			Log.i("save", bday);
-			
-		childObject.put("gender", gender);
-			Log.i("save", gender);
-			
-		childObject.put("enrolledBool", enrolledBool);
-			Log.i("save", enrolledBool.toString());
-			
-		childObject.put("allergiesList", allerList);
-			Log.i("save", allerList);
-			
-		childObject.put("contactNum", emContactNum);
-			Log.i("save", emContactNum);
-		
-		childObject.saveInBackground();
+		// build ByteArray of butmap for save
+		byte[] data = convertBitmapToByteArray(_context, mImageBitmap);
+		Log.i("saveDate", "Photo converted to byte");
+		final ParseFile photoFile = new ParseFile("photo.bmp", data);
+		Log.i("saveDate", "ParseFile");
+		// Send ByteArray to Parse
+		photoFile.saveInBackground(new SaveCallback() {
+			  public void done(ParseException e) {	
+				  // when done link to the rest of the data and save to parse
+				  ParseObject childObject = new ParseObject("ChildDB");
+					  childObject.put("photo", photoFile);				  
+					  childObject.put("fName", first);			  
+					  childObject.put("lName", last);			  
+					  childObject.put("bday", bday);			  
+					  childObject.put("gender", gender);
+					  childObject.put("enrolledBool", enrolledBool);				  
+					  childObject.put("allergiesList", allerList);	  
+					  childObject.put("contactNum", emContactNum);		  
+					  childObject.saveInBackground();
+				  }			
+				});
 		
 	}
 	

@@ -84,6 +84,7 @@ public class ChildList extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		Intent intent = new Intent(this, ChildInfo.class);
+			//intent.putExtra("PHOTO", kidlinList.get(position).getPhoto());
 			intent.putExtra("FNAME", kidlinList.get(position).getFirstname());
 			intent.putExtra("LNAME", kidlinList.get(position).getLastName());
 			intent.putExtra("DOB", kidlinList.get(position).getBDay());
@@ -91,15 +92,13 @@ public class ChildList extends ListActivity {
 			intent.putExtra("PHNUM", kidlinList.get(position).getEmergencyContact());
 			intent.putExtra("ALLERGIES", kidlinList.get(position).getAllergiesList());
 			intent.putExtra("ID", kidlinList.get(position).getChildID());
-		//Log.i("chosen", kidlinList.get(position).getFirstname());
+		
 		
 		Log.i("CLICKED", String.valueOf(position));
 	
 		startActivity(intent);
 		
 	}  //  END onListItemClicked
-	
-	
 	
 	
 	@Override
@@ -120,8 +119,7 @@ public class ChildList extends ListActivity {
 	return super.onMenuItemSelected(featureId, item);
 	}
 	
-	
-	
+		
 	private void loadSettings(){
 		SharedPreferences prefs = getSharedPreferences("myprefs",Context.MODE_PRIVATE); 
 			appID = prefs.getString("APP_ID", "default Value");
@@ -132,8 +130,7 @@ public class ChildList extends ListActivity {
 
 	}  //  END loadSettings
 
-	
-	
+		
 	private void getObject(){
 
 		Log.i("Init getObj", "Start");
@@ -148,12 +145,12 @@ public class ChildList extends ListActivity {
 			ParseQuery query = new ParseQuery("ChildDB");
 			query.getInBackground(id, new GetCallback() {  
 				public void done(ParseObject object, ParseException e) {
-						Log.i("PULLED OBJ", "step 2");
+						//Log.i("PULLED OBJ", "step 2");
 					if (e == null) {
-							Log.i("PULLED OBJ", "step 3");
-						
+							//Log.i("PULLED OBJ", "step 3");
 							kidlinList.add(new Kid(
-									object.getObjectId().toString(), 
+									//object.getBytes("photo"),
+									object.getObjectId().toString(),
 									object.getString("fName"), 
 									object.getString("lName"), 
 									object.getString("bday"), 
@@ -163,14 +160,9 @@ public class ChildList extends ListActivity {
 									object.getString("allergiesList"), 
 									object.getString("contactNum")
 									));
-						
-
-						
-						int k = kidlinList.size();
-						Log.i("KIDLIN list", String.valueOf(k));
-						
-						
-						
+							
+						//int k = kidlinList.size();
+						//Log.i("KIDLIN list", String.valueOf(k));			
 					} else {
 						Log.i("PULLED OBJ", "Something went wrong in GetObj");
 					}
@@ -190,32 +182,31 @@ public class ChildList extends ListActivity {
 					public void done(List<ParseObject> objects, ParseException e) {
 						if (e == null) {
 							int x = objects.size();
-							
+
 							for ( int i = 0; i < x; i++){  // Sending Object ID's to kids list
 								String o = objects.get(i).getObjectId().toString();
 								Log.i("id", o);
 								kids.add(o);	
-								
 								Log.i("kids Size", String.valueOf( kids.size()));
 							}
-							
+
 							if (kids.size() > 0){  // turning the list into a string array
-					      		myKidsIdArray = kids.toArray(new String[kids.size()]);
-					      		getObject();  //works
-					      	}else{
-					      		Log.i("Kids List Size", String.valueOf(kids.size()));
-					      	}	
+								myKidsIdArray = kids.toArray(new String[kids.size()]);
+								getObject();  //works
+							}else{
+								Log.i("Kids List Size", String.valueOf(kids.size()));
+							}	
 						} else {
 							String ee = e.toString();
 							Log.i("ERROR from PARSE", ee);
 						}
-					
+
 					}
 				});
 	}
 	
-	
-	public void notifyMe(){  
+	public void notifyMe(){ 
+		//private final int VIB_NOTE_ID = 1;  // add this line to global variables up top
 		NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		Notification note = new Notification();
 		note.defaults = Notification.DEFAULT_VIBRATE;

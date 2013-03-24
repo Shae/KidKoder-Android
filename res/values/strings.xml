@@ -15,5 +15,7 @@
     <string name="app_key_num">OnuGanjP6xKwQV7JOUC6wUMsmGiUlbxhyitxHS1P</string>
     <string name="gender_icon">gender Icon</string>
     <string name="child_name_default">Child Name</string>
+    <string name="local_school_website">Local School Website</string>
+    <string name="school_string_address">http://www.gsd54.org/site/default.aspx?PageID=1</string>
 
 </resources>

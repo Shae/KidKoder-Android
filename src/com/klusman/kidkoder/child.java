@@ -1,6 +1,9 @@
 package com.klusman.kidkoder;
 
 public interface child {
+	// set Photo
+	//public boolean setPhoto(byte[] photo);
+	
 	// set ID
 	public boolean setChildID(String id);
 	
@@ -30,7 +33,7 @@ public interface child {
 	
 	//set image
 	//public boolean setImage(String path);
-	
+	//public byte[] getPhoto();
 	public String getChildID();
 	public String getFirstname();
 	public String getLastName();

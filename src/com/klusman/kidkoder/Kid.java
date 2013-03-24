@@ -1,7 +1,7 @@
 package com.klusman.kidkoder;
 
 public class Kid implements child {
-	
+	//byte[] _photo;
 	String first;
 	String last;
 	String bdate;
@@ -12,7 +12,9 @@ public class Kid implements child {
 	String emergencyNum;
 	String ID;
 	
-	public Kid(String id, String fName, String lName ,String bdate, String gender, Boolean enrolled, Boolean allergies, String allergiesList, String phNum){
+	public Kid( String id, String fName, String lName ,String bdate, String gender, Boolean enrolled, Boolean allergies, String allergiesList, String phNum){
+		// byte[] photo,  // pull out
+		//setPhoto(photo);
 		setChildID(id);
 		setFirstName(fName);
 		setLastName(lName);
@@ -22,6 +24,12 @@ public class Kid implements child {
 		setAllergiesList(allergiesList);
 		setEmergencyContact(phNum);
 	}
+	
+//	@Override
+//	public boolean setPhoto(byte[] photo) {
+//		this._photo = photo;
+//		return false;
+//	}
 	
 	@Override
 	public boolean setChildID(String id) {
@@ -79,6 +87,8 @@ public class Kid implements child {
 
 	
 	
+	
+	
 	@Override
 	public String getChildID() {
 		// TODO Auto-generated method stub
@@ -132,6 +142,14 @@ public class Kid implements child {
 		// TODO Auto-generated method stub
 		return this.emergencyNum;
 	}
+
+
+//	@Override
+//	public byte[] getPhoto() {
+//		// TODO Auto-generated method stub
+//		return this._photo;
+//	}
+
 
 
 

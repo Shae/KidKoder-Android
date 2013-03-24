@@ -41,20 +41,22 @@ public final class R {
         public static final int etEmergencyNum=0x7f070016;
         public static final int etFName=0x7f07000a;
         public static final int etLName=0x7f07000c;
+        public static final int etSchool=0x7f070028;
         public static final int imageChildPhoto=0x7f070018;
         public static final int imageGenderIcon=0x7f070000;
         public static final int imageKidAddData=0x7f070008;
         public static final int listView1=0x7f070005;
-        public static final int menu_add=0x7f07002b;
-        public static final int menu_child_list=0x7f070029;
-        public static final int menu_edit=0x7f07002c;
-        public static final int menu_home=0x7f07002a;
-        public static final int menu_quick=0x7f070028;
-        public static final int menu_reset=0x7f07002d;
-        public static final int menu_save=0x7f07002e;
-        public static final int menu_settings=0x7f070027;
+        public static final int menu_add=0x7f07002d;
+        public static final int menu_child_list=0x7f07002b;
+        public static final int menu_edit=0x7f07002e;
+        public static final int menu_home=0x7f07002c;
+        public static final int menu_quick=0x7f07002a;
+        public static final int menu_reset=0x7f07002f;
+        public static final int menu_save=0x7f070030;
+        public static final int menu_settings=0x7f070029;
         public static final int radioFemale=0x7f070010;
         public static final int radioMale=0x7f07000f;
+        public static final int titleSchool=0x7f070027;
         public static final int tvALLERGIES=0x7f07001c;
         public static final int tvALRGYChildName=0x7f070006;
         public static final int tvALRGYs=0x7f070007;
@@ -97,10 +99,12 @@ public final class R {
         public static final int company_logo=0x7f040003;
         public static final int gender_icon=0x7f04000c;
         public static final int hello_world=0x7f040001;
+        public static final int local_school_website=0x7f04000e;
         public static final int menu_settings=0x7f040002;
         public static final int parse_com_application_id_=0x7f040008;
         public static final int parse_com_client_key_=0x7f040009;
         public static final int quick_links=0x7f040005;
+        public static final int school_string_address=0x7f04000f;
         public static final int settings=0x7f040006;
     }
     public static final class style {
