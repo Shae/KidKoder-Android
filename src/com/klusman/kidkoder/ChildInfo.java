@@ -4,15 +4,23 @@ package com.klusman.kidkoder;
 import com.klusman.kidkoder.R.drawable;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,11 +39,14 @@ public class ChildInfo extends Activity {
 	TextView TValrgy;
 	TextView TVem_num;
 	ImageView mImage;
+	ImageButton call;
+	Context _context;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//_context = this;
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
         		WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -49,6 +60,8 @@ public class ChildInfo extends Activity {
 		TValrgy = (TextView) findViewById(R.id.tvALLERGIES);
 		TVem_num = (TextView) findViewById(R.id.tvEM_NUM);
 		mImage = (ImageView)findViewById(R.id.imageChildPhoto);
+		call = (ImageButton)findViewById(R.id.callBtn);
+		
 		
 		
 		Bundle extras = getIntent().getExtras();
@@ -65,6 +78,8 @@ public class ChildInfo extends Activity {
 		    
 		}
 		
+//		
+		
 		
 	}
 	
@@ -73,20 +88,32 @@ public class ChildInfo extends Activity {
 		TVname.setText(fname + " " + lname);
 		TVdob.setText(dob);
 		TVgender.setText(gender);
+		
 		if (allergies != null){
 			TValrgy.setText("Allergies: " + allergies);
 		}else{
 			TValrgy.setText("Allergies: NKA");
 		}
-		TVem_num.setText("Emergency Contact #: " + contact);
+		
+		
 		if(gender.compareTo("Male") == 0){
 			mImage.setBackgroundResource(R.drawable.male2);
-			Log.i("IMAGE", "YES");
 		}else{
 			mImage.setBackgroundResource(R.drawable.female2);
-			//mImage.setBackground(R.drawable.female2);
-			Log.i("IMAGE", "NO");
 		}
+
+		TVem_num.setText("Emergency #: " + contact);
+		if(contact != null){
+				call.setOnClickListener(new OnClickListener() {
+		           
+					@Override
+					public void onClick(View arg0) {
+						
+						askUser();
+					}
+		        }); 
+			}
+		
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -116,6 +143,50 @@ public class ChildInfo extends Activity {
 		}
 	return super.onMenuItemSelected(featureId, item);
 	}
+	
+	
+	private void askUser(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				ChildInfo.this);
+
+		// set title
+		alertDialogBuilder.setTitle("Call Emergency Contact?");
+
+		// set dialog message
+		alertDialogBuilder
+		.setMessage("Call: " + contact)
+		.setCancelable(false)
+		.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int id) {
+				try {
+					myToast("Calling: " + contact);
+					Intent intent = new Intent(Intent.ACTION_CALL);
+					intent.setData(Uri.parse("tel:" + contact));
+					_context.startActivity(intent);
+				} catch (Exception e) {
+					myToast("Calling: " + "Failed");
+					e.printStackTrace();
+				}
+				ChildInfo.this.finish();
+			}
+		})
+		.setNegativeButton("No",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int id) {
+				// if this button is clicked, just close
+				// the dialog box and do nothing
+				dialog.cancel();
+			}
+		});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+	}
+	
+	
+	
 	
 	public void myToast(String text){  
 		CharSequence textIN = text;
