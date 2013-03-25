@@ -1,5 +1,8 @@
 package com.klusman.kidkoder;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.NetworkInfo.State;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Notification;
@@ -32,7 +35,19 @@ public class MainActivity extends Activity {
       	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
       	setContentView(R.layout.activity_main);
       	
-      	settingsCheck();
+      	if(isNetworkConnectionAvailable() == true){
+      		onCreateIfConnected();
+      		Log.i("CONNECTION", "Network Connection Detected");
+      	}else{
+      		Log.i("CONNECTION", "Network Connection NOT Detected");
+      	}
+      	
+      	
+	
+	}// End onCreate
+
+	private void onCreateIfConnected(){
+		settingsCheck();
 
       	
         //Parse.initialize(this, "sF8m2jJo7c3kQoenTq9UG67Rk3pnPEw7prrf4ZfR", "OnuGanjP6xKwQV7JOUC6wUMsmGiUlbxhyitxHS1P"); 
@@ -77,10 +92,7 @@ public class MainActivity extends Activity {
 		        startActivity(intent);
 			}
 		});
-	
-	}// End onCreate
-
-	
+	}// END onCreateIfConnected
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -131,4 +143,19 @@ public class MainActivity extends Activity {
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	};// end myToast
+	
+	boolean isNetworkConnectionAvailable(){
+		 
+		    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		    NetworkInfo info = cm.getActiveNetworkInfo();     
+		    if (info == null){
+		    	return false;
+		    }else{
+		    	State network = info.getState();
+		    	return (network == NetworkInfo.State.CONNECTED || network == NetworkInfo.State.CONNECTING);
+		    }
+		}     
+	
+	
+	
 }
