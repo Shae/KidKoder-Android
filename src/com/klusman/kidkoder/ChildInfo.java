@@ -151,6 +151,9 @@ public class ChildInfo extends Activity {
 		case R.id.menu_home:
 			startActivity(new Intent(this, MainActivity.class));
 			break;
+		case R.id.menu_delete:
+			askDelete();
+			break;
 		}
 	return super.onMenuItemSelected(featureId, item);
 	}
@@ -195,7 +198,75 @@ public class ChildInfo extends Activity {
 		alertDialog.show();
 	}
 	
+	private void askDelete(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				ChildInfo.this);
+
+		// set title
+		alertDialogBuilder.setTitle("Call Emergency Contact?");
+
+		// set dialog message
+		alertDialogBuilder
+		.setMessage("Delete " + fname + " " + lname + "?")
+		.setCancelable(false)
+		.setPositiveButton("DELETE",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int _id) {
+				ParseQuery query = new ParseQuery("ChildDB");
+				query.getInBackground(id, new GetCallback() {  
+					public void done(ParseObject object, ParseException e) {
+						
+						if (e == null) {
+							object.deleteInBackground();
+						} else {
+							Log.i("PULLED OBJ", "Something went wrong in GetObj");
+						}
+						
+					}
+				});
+				//ChildInfo.this.finish();
+				notifyUser("File Successfully Removed", "You are now geing redirected to Main Menu.");
+			}
+		})
+		.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int id) {
+				// if this button is clicked, just close
+				// the dialog box and do nothing
+				dialog.cancel();
+			}
+		});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+	}
 	
+	
+	private void notifyUser(String title, String Msg){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ChildInfo.this);
+
+		// set title
+		alertDialogBuilder.setTitle(title);
+
+		// set dialog message
+		alertDialogBuilder
+		.setMessage(Msg)
+		.setCancelable(false)
+		.setPositiveButton("Done",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int id) {
+				Intent intent = new Intent(ChildInfo.this, MainActivity.class);
+		        startActivity(intent);
+		        ChildInfo.this.finish();
+			}
+		});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+	}
 	private void pullObject(){
 		ParseQuery query = new ParseQuery("ChildDB");
 		query.getInBackground(id, new GetCallback() {  
@@ -256,4 +327,6 @@ public class ChildInfo extends Activity {
 		Log.i("KEY", appKey);
 		
 	}  //  END loadSettings
+	
+
 }

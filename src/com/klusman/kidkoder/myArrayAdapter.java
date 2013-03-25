@@ -26,7 +26,7 @@ public class myArrayAdapter extends ArrayAdapter<Kid>{
 	public myArrayAdapter(Context context, ArrayList<Kid> kidlinList) {
 		super(context, R.layout.cell, kidlinList);
 		
-		Log.i("Array Adapter", "Initiated");
+		
 		this._context = context;
 		this._kidlinList = kidlinList;
 		//this._myKidsArray = myKidsArray;

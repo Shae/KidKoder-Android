@@ -86,7 +86,7 @@ public class AllergyList extends ListActivity {
 		Log.i("MyKids", String.valueOf(x));
 		for( int i = 0; i < x; i++){
 			String id = myKidsIdArray[i];
-			Log.i("Loop", String.valueOf(i) + " times around");
+			
 			Log.i("id", id);
 			
 			ParseQuery query = new ParseQuery("ChildDB");

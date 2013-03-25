@@ -1,6 +1,8 @@
 package com.klusman.kidkoder;
 
 import java.io.ByteArrayOutputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
@@ -20,6 +22,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -34,6 +37,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -42,6 +46,7 @@ import com.parse.Parse;
 
 public class ChildDataADD extends Activity {
 	Boolean anEdit = false;
+	Boolean defaultPhoto = true;
 	String appID;
 	String appKey;
 	
@@ -128,7 +133,9 @@ public class ChildDataADD extends Activity {
 			resetPage();
 			break;
 		case R.id.menu_save:
-			validateEntries();
+			if(validateEntries() == true){
+				saveData(); 
+			}
 			break;
 		case R.id.menu_settings:
 			startActivity(new Intent(this, SettingsActivity.class));
@@ -261,9 +268,7 @@ public class ChildDataADD extends Activity {
 	
 	
 	private void updateVars(){
-		Log.i("UPDATE", "vars updated");
-		int index = radioGend.indexOfChild(findViewById(radioGend.getCheckedRadioButtonId()));
-		Log.i("RADIO GRP", String.valueOf(index));
+		Log.i("UPDATE", "Variables Updated");
 		
 		first = fName.getText().toString();
 		last = lName.getText().toString();
@@ -271,6 +276,7 @@ public class ChildDataADD extends Activity {
 		allerList = allergiesList.getText().toString();
 		emContactNum = emergencyContactNum.getText().toString();
 		
+		int index = radioGend.indexOfChild(findViewById(radioGend.getCheckedRadioButtonId()));
 		if(index == 0){
 			gender = "Male";
 		}else if(index == 1){
@@ -284,33 +290,62 @@ public class ChildDataADD extends Activity {
 
 	}
 	
-	public void validateEntries(){
-//		if(fName.getText().length() > 0){
-//			first = fName.getText().toString();
+	public boolean validateEntries(){
+		if(defaultPhoto == true){
+			myToast("Please add photo before saving");
+			return false;
+		}
 		
-//		}else{
-//			TextView tv = (TextView)findViewById(R.id.tvFNameTitle);
-//			tv.setTextColor(Color.parseColor("#FF0000"));
-//		}
-//		
-//		if(lName.getText().length() > 0){
-//			last = lName.getText().toString();
-//			
-//		}else{
-//			TextView tv = (TextView)findViewById(R.id.tvLNameTitle);
-//			tv.setTextColor(Color.parseColor("#FF0000"));
-//		}
-//		
-//		if(DoB.getText().length() > 0){
-//			bday = DoB.getText().toString();
-//			
-//		}else{
-//			TextView tv = (TextView)findViewById(R.id.tvDoBTitle);
-//			tv.setTextColor(Color.parseColor("#FF0000"));
-//			
-//		}
+		// check first
+		TextView tvf = (TextView)findViewById(R.id.tvFNameTitle);
+		if(fName.getText().length() <= 1){
+			tvf.setTextColor(Color.parseColor("#FF0000"));
+			myToast("Please add a First Name");
+			return false;
+		}
+			tvf.setTextColor(Color.parseColor("#66CD00"));
 		
-		saveData();    
+		
+		// check last
+		TextView tvl = (TextView)findViewById(R.id.tvLNameTitle);
+		if(lName.getText().length() <= 1){
+			tvl.setTextColor(Color.parseColor("#FF0000"));
+			myToast("Please add a Last Name");
+			return false;
+		}
+			tvl.setTextColor(Color.parseColor("#66CD00"));
+		
+			
+		// Validate birthday
+		String regEx ="^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\\d{2}$";	
+		Matcher matcherObj = Pattern.compile(regEx).matcher(DoB.getText());
+		TextView tvbd = (TextView)findViewById(R.id.tvDoBTitle);
+		int match = 0;
+			if (matcherObj.matches()){
+				match = 1;
+			}else{
+				match = 0;
+			}
+		if(match == 0){
+			tvbd.setTextColor(Color.parseColor("#FF0000"));
+			myToast("Please make sure Birthday is formatted correctly mm/dd/yyyy");
+			return false;
+		}
+			tvbd.setTextColor(Color.parseColor("#66CD00"));
+		
+			
+		// Check gender selected
+		int index = radioGend.indexOfChild(findViewById(radioGend.getCheckedRadioButtonId()));
+		TextView rg = (TextView)findViewById(R.id.tvGenderTitle);
+		if(index == -1){
+			rg.setTextColor(Color.parseColor("#FF0000"));
+			myToast("Please select a gender");
+			return false;
+		}
+			rg.setTextColor(Color.parseColor("#66CD00"));
+			
+		// MADE IT :)	
+		return true;  
 	}
 	
 	
@@ -318,7 +353,6 @@ public class ChildDataADD extends Activity {
 	    Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 	    startActivityForResult(takePicture, 0);
 	}
-	
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) 
@@ -344,7 +378,7 @@ public class ChildDataADD extends Activity {
 	    Bundle extras = intent.getExtras();
 	    mImageBitmap = (Bitmap) extras.get("data");
 	    photo.setImageBitmap(mImageBitmap);
-	    
+	    defaultPhoto = false;    
 	}
 	
 	private void saveData(){  
@@ -381,18 +415,14 @@ public class ChildDataADD extends Activity {
 			byte[] data = convertBitmapToByteArray(_context, mImageBitmap);
 			Log.i("saveDate", "Photo converted to byte");
 			final ParseFile photoFile = new ParseFile("photo.bmp", data);
-			Log.i("saveDate", "ParseFile 1");
 			// Send ByteArray to Parse
 			photoFile.saveInBackground(new SaveCallback() {
 
 				public void done(ParseException e) {	
-					Log.i("saveDate", "ParseFile 2");
 					ParseQuery query = new ParseQuery("ChildDB");
 					query.getInBackground(id, new GetCallback() {  
 						public void done(ParseObject object, ParseException e) {
 							if (e == null) {
-								Log.i("saveDate", "ParseFile 3");
-
 								object.put("photo", photoFile);				  
 								object.put("fName", first);			  
 								object.put("lName", last);			  
@@ -415,9 +445,12 @@ public class ChildDataADD extends Activity {
 	}  // END save data
 	
 	public byte[] convertBitmapToByteArray(Context context, Bitmap bitmap) {
-	    ByteArrayOutputStream buffer = new ByteArrayOutputStream(bitmap.getWidth() * bitmap.getHeight());
-	    bitmap.compress(CompressFormat.PNG, 100, buffer);
-	    return buffer.toByteArray();
+	   //if(defaultPhoto == false){
+			ByteArrayOutputStream buffer = new ByteArrayOutputStream(bitmap.getWidth() * bitmap.getHeight());
+		    bitmap.compress(CompressFormat.PNG, 100, buffer);
+		    return buffer.toByteArray();
+	  // }
+	    
 	}
 	
 	public void myToast(String text){  
@@ -455,6 +488,7 @@ public class ChildDataADD extends Activity {
 					if (e == null) {
 						photo.setImageBitmap(BitmapFactory.decodeByteArray(data,0,data.length) );
 						Log.i("Image", "Pulled");
+						defaultPhoto = false;
 					} else {
 						Log.i("failed", "photo didnt work");
 						if(gender.compareTo("Male") == 0){

@@ -49,11 +49,12 @@ public final class R {
         public static final int listView1=0x7f070005;
         public static final int menu_add=0x7f070030;
         public static final int menu_child_list=0x7f07002e;
+        public static final int menu_delete=0x7f070032;
         public static final int menu_edit=0x7f070031;
         public static final int menu_home=0x7f07002f;
         public static final int menu_quick=0x7f07002d;
-        public static final int menu_reset=0x7f070032;
-        public static final int menu_save=0x7f070033;
+        public static final int menu_reset=0x7f070033;
+        public static final int menu_save=0x7f070034;
         public static final int menu_settings=0x7f07002c;
         public static final int radioFemale=0x7f070010;
         public static final int radioMale=0x7f07000f;
