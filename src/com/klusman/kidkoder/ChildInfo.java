@@ -76,6 +76,7 @@ public class ChildInfo extends Activity {
 		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
+			Log.i("BUNDLE", "YES 1");
 		    fname = extras.getString("FNAME");	
 		    lname = extras.getString("LNAME");
 		    dob = extras.getString("DOB");
@@ -83,9 +84,7 @@ public class ChildInfo extends Activity {
 		    allergies = extras.getString("ALLERGIES");
 		    id = extras.getString("ID");
 		    gender = extras.getString("GENDER");
-		    //photo = extras.getByteArray("PHOTO");
 		    setText();
-		    
 		    pullObject();
 		}
 		
@@ -135,7 +134,16 @@ public class ChildInfo extends Activity {
 			startActivity(new Intent(this, ChildDataADD.class));
 			break;
 		case R.id.menu_edit:
-			myToast("EDIT FEATURE CURRENTLY UNDER CONSTRUCTION");
+			Log.i("intent", "start new intent to EDIT");
+			Intent intent = new Intent(this, ChildDataADD.class);
+				intent.putExtra("FNAME", fname);
+				intent.putExtra("LNAME", lname);
+				intent.putExtra("DOB", dob);
+				intent.putExtra("GENDER", gender);
+				intent.putExtra("PHNUM", contact);
+				intent.putExtra("ALLERGIES", allergies);
+				intent.putExtra("ID", id);
+			startActivity(intent);
 			break;
 		case R.id.menu_settings:
 			startActivity(new Intent(this, SettingsActivity.class));

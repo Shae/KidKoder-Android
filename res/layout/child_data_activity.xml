@@ -132,7 +132,9 @@
 	        android:layout_marginRight="10dp"
 	        android:ems="10"
 	        android:hint="Enter Known Allergies"
+	        android:inputType="text"
 	        android:textColor="@android:color/white" />
+
 	    
 	    <TextView
 	        android:id="@+id/tvEmerContact"

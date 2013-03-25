@@ -2,17 +2,23 @@ package com.klusman.kidkoder;
 
 import java.io.ByteArrayOutputStream;
 
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -35,6 +41,7 @@ import com.parse.Parse;
 
 
 public class ChildDataADD extends Activity {
+	Boolean anEdit = false;
 	String appID;
 	String appKey;
 	
@@ -50,7 +57,7 @@ public class ChildDataADD extends Activity {
 	RadioGroup radioGend;
 	
 	ImageView photo;
-	
+	String id;
 	String first;
 	String last;
 	String bday;
@@ -71,108 +78,37 @@ public class ChildDataADD extends Activity {
       	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
       	_context = this;
       	loadSettings();
+      	setContentView(R.layout.child_data_activity);
       	Parse.initialize(this, appID, appKey); 
-		setContentView(R.layout.child_data_activity);
-		
-		// connect views with variables
-		fName = (EditText)findViewById(R.id.etFName);
-		fName.setOnFocusChangeListener(new OnFocusChangeListener() {          
-
-	        public void onFocusChange(View v, boolean hasFocus) {
-	            if(!hasFocus){
-	            	updateVars();
-	            }
-	               
-	        }
-	    });
-		
-		lName = (EditText)findViewById(R.id.etLName);
-		lName.setOnFocusChangeListener(new OnFocusChangeListener() {          
-
-	        public void onFocusChange(View v, boolean hasFocus) {
-	            if(!hasFocus){
-	            	updateVars();
-	            }
-	               
-	        }
-	    });
-		
-		DoB = (EditText)findViewById(R.id.etDoB);
-		DoB.setOnFocusChangeListener(new OnFocusChangeListener() {          
-
-	        public void onFocusChange(View v, boolean hasFocus) {
-	            if(!hasFocus){
-	            	updateVars();
-	            }
-	               
-	        }
-	    });
-		
-		allergiesList = (EditText)findViewById(R.id.etAllergiesField);
-		allergiesList.setOnFocusChangeListener(new OnFocusChangeListener() {          
-
-	        public void onFocusChange(View v, boolean hasFocus) {
-	            if(!hasFocus){
-	            	updateVars();
-	            }
-	               
-	        }
-	    });
-		
-		emergencyContactNum = (EditText)findViewById(R.id.etEmergencyNum);	
-		emergencyContactNum.setOnFocusChangeListener(new OnFocusChangeListener() {          
-
-	        public void onFocusChange(View v, boolean hasFocus) {
-	            if(!hasFocus){
-	            	updateVars();
-	            }
-	               
-	        }
-	    });
-		
-//		allergies = (CheckBox)findViewById(R.id.boxAllergies);
-//		allergies.setOnFocusChangeListener(new OnFocusChangeListener() {          
-//
-//	        public void onFocusChange(View v, boolean hasFocus) {
-//	            if(!hasFocus){
-//	            	updateVars();
-//	            }
-//	               
-//	        }
-//	    });  // Removed from Activity for now
-		
-		enrolled = (CheckBox)findViewById(R.id.boxEnrolled);
-		enrolled.setOnFocusChangeListener(new OnFocusChangeListener() {          
-
-	        public void onFocusChange(View v, boolean hasFocus) {
-	            if(!hasFocus){
-	            	updateVars();
-	            }
-	               
-	        }
-	    });
-		
-		radioGend = (RadioGroup)findViewById(R.id.RadioGrp);
-		radioGend.setOnFocusChangeListener(new OnFocusChangeListener() {          
-			
-	        public void onFocusChange(View v, boolean hasFocus) {
-	            if(!hasFocus){
-	            	updateVars();
-	            }
-	               
-	        }
-	    });
-		
-		photo = (ImageView)findViewById(R.id.imageKidAddData);
-		photo.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				dispatchTakePictureIntent();
-			
+      	
+      	buildPage();
+      	
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			anEdit = true;
+		    fName.setText(extras.getString("FNAME"));	
+		    lName.setText(extras.getString("LNAME"));
+		    DoB.setText( extras.getString("DOB"));
+		    emergencyContactNum.setText(extras.getString("PHNUM"));
+		    allergiesList.setText(extras.getString("ALLERGIES"));
+		    id = extras.getString("ID");
+			// NEED photo pull
+			pullObject();  // get / set obj photo on open
+		   // gender = extras.getString("GENDER");
+			if(extras.getString("GENDER").compareTo("Male") == 0){
+				radioGend.check(0);
+				Log.i("GENDER HIT", "MALE");
+			}else{
+				radioGend.check(1);
+				Log.i("GENDER HIT", "FEMALE");
 			}
-		});
 
+			
+		}else{
+			anEdit = false;
+		}
+		
+		
 		
 	}
 	
@@ -189,20 +125,7 @@ public class ChildDataADD extends Activity {
 			startActivity(new Intent(this, MainActivity.class));
 			break;
 		case R.id.menu_reset:
-			first = null;
-			last = null;
-			bday = null;
-			allerList = null;
-			emContactNum = null;
-			gender = null;
-			enrolledBool = true;
-			//allergiesBool = false;
-			
-			fName.setText("");
-			lName.setText("");
-			DoB.setText("");
-			allergiesList.setText("");
-			emergencyContactNum.setText("");
+			resetPage();
 			break;
 		case R.id.menu_save:
 			validateEntries();
@@ -214,7 +137,116 @@ public class ChildDataADD extends Activity {
 	return super.onMenuItemSelected(featureId, item);
 	}
 	
+	private void resetPage(){
+		first = null;
+		last = null;
+		bday = null;
+		allerList = null;
+		emContactNum = null;
+		gender = null;
+		enrolledBool = true;
+		//allergiesBool = false;
+		
+		fName.setText("");
+		lName.setText("");
+		DoB.setText("");
+		allergiesList.setText("");
+		emergencyContactNum.setText("");
+		radioGend.check(-1);
+		photo.setImageResource(R.drawable.photo3);
+	}
 	
+	private void buildPage(){
+		// connect views with variables
+				fName = (EditText)findViewById(R.id.etFName);
+				fName.setOnFocusChangeListener(new OnFocusChangeListener() {          
+
+			        public void onFocusChange(View v, boolean hasFocus) {
+			            if(!hasFocus){
+			            	updateVars();
+			            }
+			               
+			        }
+			    });
+				
+				lName = (EditText)findViewById(R.id.etLName);
+				lName.setOnFocusChangeListener(new OnFocusChangeListener() {          
+
+			        public void onFocusChange(View v, boolean hasFocus) {
+			            if(!hasFocus){
+			            	updateVars();
+			            }
+			               
+			        }
+			    });
+				
+				DoB = (EditText)findViewById(R.id.etDoB);
+				DoB.setOnFocusChangeListener(new OnFocusChangeListener() {          
+
+			        public void onFocusChange(View v, boolean hasFocus) {
+			            if(!hasFocus){
+			            	updateVars();
+			            }
+			               
+			        }
+			    });
+				
+				allergiesList = (EditText)findViewById(R.id.etAllergiesField);
+				allergiesList.setOnFocusChangeListener(new OnFocusChangeListener() {          
+
+			        public void onFocusChange(View v, boolean hasFocus) {
+			            if(!hasFocus){
+			            	updateVars();
+			            }
+			               
+			        }
+			    });
+				
+				emergencyContactNum = (EditText)findViewById(R.id.etEmergencyNum);	
+				emergencyContactNum.setOnFocusChangeListener(new OnFocusChangeListener() {          
+
+			        public void onFocusChange(View v, boolean hasFocus) {
+			            if(!hasFocus){
+			            	updateVars();
+			            }
+			               
+			        }
+			    });
+				
+				
+				enrolled = (CheckBox)findViewById(R.id.boxEnrolled);
+				enrolled.setOnFocusChangeListener(new OnFocusChangeListener() {          
+
+			        public void onFocusChange(View v, boolean hasFocus) {
+			            if(!hasFocus){
+			            	updateVars();
+			            }
+			               
+			        }
+			    });
+				
+				radioGend = (RadioGroup)findViewById(R.id.RadioGrp);
+				radioGend.setOnFocusChangeListener(new OnFocusChangeListener() {          
+					
+			        public void onFocusChange(View v, boolean hasFocus) {
+			            if(!hasFocus){
+			            	updateVars();
+			            }
+			               
+			        }
+			    });
+				
+				photo = (ImageView)findViewById(R.id.imageKidAddData);
+				photo.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						dispatchTakePictureIntent();
+					
+					}
+				});
+
+	}
 	
 	
 	private void loadSettings(){
@@ -318,36 +350,75 @@ public class ChildDataADD extends Activity {
 	private void saveData(){  
 		updateVars();
 		Log.i("saveDate", "Function Initialized");
-		// build ByteArray of butmap for save
-		byte[] data = convertBitmapToByteArray(_context, mImageBitmap);
-		Log.i("saveDate", "Photo converted to byte");
-		final ParseFile photoFile = new ParseFile("photo.bmp", data);
-		Log.i("saveDate", "ParseFile");
-		// Send ByteArray to Parse
-		photoFile.saveInBackground(new SaveCallback() {
-			  public void done(ParseException e) {	
-				  // when done link to the rest of the data and save to parse
-				  ParseObject childObject = new ParseObject("ChildDB");
-					  childObject.put("photo", photoFile);				  
-					  childObject.put("fName", first);			  
-					  childObject.put("lName", last);			  
-					  childObject.put("bday", bday);			  
-					  childObject.put("gender", gender);
-					  childObject.put("enrolledBool", enrolledBool);				  
-					  childObject.put("allergiesList", allerList);	  
-					  childObject.put("contactNum", emContactNum);		  
-					  childObject.saveInBackground();
-				  }			
-				});
-		
-	}
+
+		if(anEdit == false){
+			// build ByteArray of bitmap for save
+			byte[] data = convertBitmapToByteArray(_context, mImageBitmap);
+			Log.i("saveDate", "Photo converted to byte");
+			final ParseFile photoFile = new ParseFile("photo.bmp", data);
+			Log.i("saveDate", "ParseFile");
+			// Send ByteArray to Parse
+			photoFile.saveInBackground(new SaveCallback() {
+				public void done(ParseException e) {	
+					// when done link to the rest of the data and save to parse
+					ParseObject childObject = new ParseObject("ChildDB");
+					childObject.put("photo", photoFile);				  
+					childObject.put("fName", first);			  
+					childObject.put("lName", last);			  
+					childObject.put("bday", bday);			  
+					childObject.put("gender", gender);
+					childObject.put("enrolledBool", enrolledBool);				  
+					childObject.put("allergiesList", allerList);	  
+					childObject.put("contactNum", emContactNum);		  
+					childObject.saveInBackground();
+				}			
+			});
+
+		}// END if anEdit FALSE
+
+		if(anEdit == true){
+			// build ByteArray of bitmap for save
+			byte[] data = convertBitmapToByteArray(_context, mImageBitmap);
+			Log.i("saveDate", "Photo converted to byte");
+			final ParseFile photoFile = new ParseFile("photo.bmp", data);
+			Log.i("saveDate", "ParseFile 1");
+			// Send ByteArray to Parse
+			photoFile.saveInBackground(new SaveCallback() {
+
+				public void done(ParseException e) {	
+					Log.i("saveDate", "ParseFile 2");
+					ParseQuery query = new ParseQuery("ChildDB");
+					query.getInBackground(id, new GetCallback() {  
+						public void done(ParseObject object, ParseException e) {
+							if (e == null) {
+								Log.i("saveDate", "ParseFile 3");
+
+								object.put("photo", photoFile);				  
+								object.put("fName", first);			  
+								object.put("lName", last);			  
+								object.put("bday", bday);			  
+								object.put("gender", gender);
+								object.put("enrolledBool", enrolledBool);				  
+								object.put("allergiesList", allerList);	  
+								object.put("contactNum", emContactNum);		  
+								object.saveInBackground();
+
+							} else {
+								Log.i("PULLED OBJ", "Something went wrong with the Update");
+							}
+						}
+					});
+				}		
+			});
+		} // end if anEdit TRUE
+		notifyUser("Update Complete", "Returning to main navigation page.");
+	}  // END save data
 	
 	public byte[] convertBitmapToByteArray(Context context, Bitmap bitmap) {
 	    ByteArrayOutputStream buffer = new ByteArrayOutputStream(bitmap.getWidth() * bitmap.getHeight());
 	    bitmap.compress(CompressFormat.PNG, 100, buffer);
 	    return buffer.toByteArray();
 	}
-
 	
 	public void myToast(String text){  
 		CharSequence textIN = text;
@@ -356,5 +427,73 @@ public class ChildDataADD extends Activity {
 		toast.setGravity(Gravity.BOTTOM, 0, 0);
 		toast.show();
 	};// end myToast
+	
+	private void pullObject(){  // prep Child obj and pass for image pull
+		ParseQuery query = new ParseQuery("ChildDB");
+		query.getInBackground(id, new GetCallback() {  
+			public void done(ParseObject object, ParseException e) {
+				
+				if (e == null) {
+					Log.i("PULLED OBJ", "Obj pull worked");	
+					pullPhotoFromObj(object);
+				} else {
+					Log.i("PULLED OBJ", "Something went wrong in GetObj");
+				}
+				
+			}
+		});
+	}
+	
+	private void pullPhotoFromObj(ParseObject object){  // image pull
+		ParseFile ChildPhoto;
+		try {
+			ChildPhoto = (ParseFile)object.get("photo");
+			ChildPhoto.getDataInBackground(new GetDataCallback() {
+				
+				@Override
+				public void done(byte[] data, ParseException e) {
+					if (e == null) {
+						photo.setImageBitmap(BitmapFactory.decodeByteArray(data,0,data.length) );
+						Log.i("Image", "Pulled");
+					} else {
+						Log.i("failed", "photo didnt work");
+						if(gender.compareTo("Male") == 0){
+							photo.setBackgroundResource(R.drawable.male2);
+						}else{
+							photo.setBackgroundResource(R.drawable.female2);
+						}
+					}
+					
+				}
+			});	
+		} catch (Exception e1) {
+			Log.i("ChildInfo photo", "No Photo on file");
+		}
+	}
+	
+	private void notifyUser(String title, String Msg){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ChildDataADD.this);
+
+		// set title
+		alertDialogBuilder.setTitle(title);
+
+		// set dialog message
+		alertDialogBuilder
+		.setMessage(Msg)
+		.setCancelable(false)
+		.setPositiveButton("Done",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog,int id) {
+				Intent intent = new Intent(ChildDataADD.this, MainActivity.class);
+		        startActivity(intent);
+				ChildDataADD.this.finish();
+			}
+		});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+	}
 	
 }
