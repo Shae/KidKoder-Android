@@ -29,11 +29,11 @@ public final class R {
         public static final int RadioGrp=0x7f07000e;
         public static final int boxEnrolled=0x7f070017;
         public static final int btnAllergies=0x7f070002;
+        public static final int btnCheckConnection=0x7f070021;
         public static final int btnChildAbu=0x7f070025;
         public static final int btnChildren=0x7f070001;
         public static final int btnQlinks=0x7f070003;
         public static final int btnSettings=0x7f070004;
-        public static final int button1=0x7f070021;
         public static final int callBtn=0x7f07001e;
         public static final int etAllergiesField=0x7f070014;
         public static final int etAppID=0x7f070027;

@@ -1,6 +1,8 @@
 package com.klusman.kidkoder;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,10 +12,15 @@ import android.net.NetworkInfo.State;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class NoNetwork extends Activity {
+	
+	private final int VIB_NOTE_ID = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +29,28 @@ public class NoNetwork extends Activity {
       	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
       	setContentView(R.layout.no_connection_activity);
       	
-      	if(isNetworkConnectionAvailable() == true){
-      		Intent intent = new Intent(NoNetwork.this, MainActivity.class);
-	        startActivity(intent);
-      		Log.i("CONNECTION", "Network Connection Detected, Starting MainActivity");
-      	}else{
-      		myToast("Still No Connection Detected");
-      		Log.i("CONNECTION", "Network Connection NOT Detected");
-      	}
+      	
+      	Button btn = (Button)findViewById(R.id.btnCheckConnection);
+      	btn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				if(isNetworkConnectionAvailable() == true){
+					Log.i("CONNECTION", "Network Connection Detected, Starting MainActivity");
+					Intent intent = new Intent(NoNetwork.this, MainActivity.class);
+					startActivity(intent);
+					
+				}else{
+					myToast("Still No Connection Detected");
+					Log.i("CONNECTION", "Network Connection NOT Detected");
+					notifyMe();
+				}
+		
+				
+			}
+		});
+		
+		
       	
       	
 	
@@ -54,4 +75,11 @@ public class NoNetwork extends Activity {
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	};// end myToast
+	
+	public void notifyMe(){  
+		NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		Notification note = new Notification();
+		note.defaults = Notification.DEFAULT_VIBRATE;
+		nm.notify(VIB_NOTE_ID, note);
+	}
 }

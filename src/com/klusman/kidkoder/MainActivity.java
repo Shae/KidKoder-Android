@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
       		onCreateIfConnected();
       		Log.i("CONNECTION", "Network Connection Detected");
       	}else{
+      		notifyMe();
       		Log.i("CONNECTION", "Network Connection NOT Detected");
       	}
       	
