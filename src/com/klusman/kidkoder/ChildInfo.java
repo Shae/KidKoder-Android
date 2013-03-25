@@ -30,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class ChildInfo extends Activity {
 	
@@ -51,6 +52,12 @@ public class ChildInfo extends Activity {
 	ImageView mImage;
 	ImageButton call;
 	Context _context;
+	Boolean checkIn;
+	
+	ToggleButton inOutBtn;
+	boolean on;  // toggle button on?
+
+	
 	
 	
 	@Override
@@ -61,10 +68,12 @@ public class ChildInfo extends Activity {
         		WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
       	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+      	
       	Log.i("ChildInfo", "Start");
       	loadSettings();
 		setContentView(R.layout.child_info_activity);
-		Parse.initialize(this, appID , appKey); 
+		Parse.initialize(this, appID , appKey);
+		
 		TVname = (TextView) findViewById(R.id.tvNAME);
 		TVdob = (TextView) findViewById(R.id.tvBDAY);
 		TVgender = (TextView) findViewById(R.id.tvGENDER);
@@ -72,11 +81,10 @@ public class ChildInfo extends Activity {
 		TVem_num = (TextView) findViewById(R.id.tvEM_NUM);
 		mImage = (ImageView)findViewById(R.id.imageChildPhoto);
 		call = (ImageButton)findViewById(R.id.callBtn);
-		
+		inOutBtn = (ToggleButton)findViewById(R.id.toggleBtn);
 		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			Log.i("BUNDLE", "YES 1");
 		    fname = extras.getString("FNAME");	
 		    lname = extras.getString("LNAME");
 		    dob = extras.getString("DOB");
@@ -84,10 +92,40 @@ public class ChildInfo extends Activity {
 		    allergies = extras.getString("ALLERGIES");
 		    id = extras.getString("ID");
 		    gender = extras.getString("GENDER");
+		    Log.i("Checked in?", String.valueOf(extras.getBoolean("INOUT")));
+		    if(extras.getBoolean("INOUT") == true){
+		    	inOutBtn.setChecked(true);
+		    }else{
+		    	inOutBtn.setChecked(false);
+		    }
 		    setText();
 		    pullObject();
 		}
 		
+	
+		inOutBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				on = ((ToggleButton) v).isChecked();
+				
+				ParseQuery query = new ParseQuery("ChildDB");
+				query.getInBackground(id, new GetCallback() {  
+					public void done(ParseObject object, ParseException e) {
+						
+						if (e == null) {
+							object.put("checkIN", on);
+							Log.i("Toggle in/Out", "in/out toggle worked");
+							object.saveInBackground();
+						} else {
+							Log.i("Toggle in/Out", "in/out toggle failed");
+						}
+						
+					}
+				});
+				
+			}
+		});
 		
 	}  // END onCreate
 	
@@ -267,6 +305,7 @@ public class ChildInfo extends Activity {
 		// show it
 		alertDialog.show();
 	}
+	
 	private void pullObject(){
 		ParseQuery query = new ParseQuery("ChildDB");
 		query.getInBackground(id, new GetCallback() {  

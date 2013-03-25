@@ -64,6 +64,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		
+		
 		Button alrgBtn = (Button)findViewById(R.id.btnAllergies);
 		alrgBtn.setOnClickListener(new OnClickListener() {
 			

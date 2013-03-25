@@ -347,8 +347,7 @@ public class ChildDataADD extends Activity {
 		// MADE IT :)	
 		return true;  
 	}
-	
-	
+		
 	private void dispatchTakePictureIntent() {
 	    Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 	    startActivityForResult(takePicture, 0);
@@ -403,7 +402,8 @@ public class ChildDataADD extends Activity {
 					childObject.put("gender", gender);
 					childObject.put("enrolledBool", enrolledBool);				  
 					childObject.put("allergiesList", allerList);	  
-					childObject.put("contactNum", emContactNum);		  
+					childObject.put("contactNum", emContactNum);
+					childObject.put("checkIN", false);
 					childObject.saveInBackground();
 				}			
 			});

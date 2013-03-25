@@ -92,8 +92,9 @@ public class ChildList extends ListActivity {
 			intent.putExtra("PHNUM", kidlinList.get(position).getEmergencyContact());
 			intent.putExtra("ALLERGIES", kidlinList.get(position).getAllergiesList());
 			intent.putExtra("ID", kidlinList.get(position).getChildID());
+			intent.putExtra("INOUT", kidlinList.get(position).getInOut());
 		
-		
+			Log.i("Checked in?", String.valueOf(kidlinList.get(position).getInOut()));
 		Log.i("CLICKED", String.valueOf(position));
 	
 		startActivity(intent);
@@ -158,7 +159,9 @@ public class ChildList extends ListActivity {
 									object.getBoolean("enrolledBool"), 
 									object.getBoolean("allergiesBool"), 
 									object.getString("allergiesList"), 
-									object.getString("contactNum")
+									object.getString("contactNum"),
+									object.getBoolean("checkIN")
+									
 									));
 							
 						//int k = kidlinList.size();

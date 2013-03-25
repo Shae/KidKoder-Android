@@ -86,20 +86,12 @@ public class AllergyList extends ListActivity {
 		Log.i("MyKids", String.valueOf(x));
 		for( int i = 0; i < x; i++){
 			String id = myKidsIdArray[i];
-			
 			Log.i("id", id);
-			
 			ParseQuery query = new ParseQuery("ChildDB");
 			query.getInBackground(id, new GetCallback() {  
 				public void done(ParseObject object, ParseException e) {
-						Log.i("PULLED OBJ", "step 2");
 					if (e == null) {
-							Log.i("PULLED OBJ", "step 3");
-							String algryX = object.getString("allergiesList");
-							Log.i("ALRGYX", algryX);
-						
-							
-							
+			
 							kidlinList.add(new Kid(
 									object.getObjectId().toString(), 
 									object.getString("fName"), 
@@ -109,17 +101,13 @@ public class AllergyList extends ListActivity {
 									object.getBoolean("enrolledBool"), 
 									object.getBoolean("allergiesBool"), 
 									object.getString("allergiesList"), 
-									object.getString("contactNum")
+									object.getString("contactNum"),
+									object.getBoolean("inOut")
 									));
 							
-						
-
-						
 						int k = kidlinList.size();
 						Log.i("KIDLIN list", String.valueOf(k));
-						
-						
-						
+				
 					} else {
 						Log.i("PULLED OBJ", "Something went wrong in GetObj");
 					}

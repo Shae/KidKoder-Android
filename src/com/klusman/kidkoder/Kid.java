@@ -8,11 +8,12 @@ public class Kid implements child {
 	String gender;
 	Boolean enrolled;
 	Boolean allergies;
+	Boolean _inOut;
 	String allergiesList;
 	String emergencyNum;
 	String ID;
 	
-	public Kid( String id, String fName, String lName ,String bdate, String gender, Boolean enrolled, Boolean allergies, String allergiesList, String phNum){
+	public Kid( String id, String fName, String lName ,String bdate, String gender, Boolean enrolled, Boolean allergies, String allergiesList, String phNum, Boolean inOut){
 		// byte[] photo,  // pull out
 		//setPhoto(photo);
 		setChildID(id);
@@ -23,6 +24,8 @@ public class Kid implements child {
 		setAllergiesBool(enrolled);
 		setAllergiesList(allergiesList);
 		setEmergencyContact(phNum);
+		setInOut(inOut);
+		
 	}
 	
 //	@Override
@@ -84,8 +87,12 @@ public class Kid implements child {
 		this.emergencyNum = phNum;
 		return true;
 	}
-
 	
+	@Override
+	public boolean setInOut(Boolean inOut){
+		this._inOut = inOut;
+		return true;
+	}
 	
 	
 	
@@ -141,6 +148,12 @@ public class Kid implements child {
 	public String getEmergencyContact() {
 		// TODO Auto-generated method stub
 		return this.emergencyNum;
+	}
+
+	@Override
+	public boolean getInOut() {
+		// TODO Auto-generated method stub
+		return this._inOut;
 	}
 
 
