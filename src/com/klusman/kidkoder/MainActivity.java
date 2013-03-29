@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+//import android.graphics.Typeface;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -20,13 +21,16 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 import com.parse.Parse;
-//i<have>noidea=itryed(ILoveYouMore)!!!!!!  // Code written by Andrea A.K.A the Dark Haired Overlord
-//Leaving it in so she thinks shes cool LOL.  Think of it like an Easter Egg
+    
+
+
+
 public class MainActivity extends Activity {
 
 	private final int VIB_NOTE_ID = 1;
 	String appID;
 	String appKey;
+	//Typeface typface;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
       	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
       	setContentView(R.layout.activity_main);
+      	//typface= Typeface.createFromAsset(this.getAssets(),"fonts/marker_felt.ttf");
       	
       	if(isNetworkConnectionAvailable() == true){
       		onCreateIfConnected();
@@ -55,6 +60,7 @@ public class MainActivity extends Activity {
         Parse.initialize(this, appID , appKey); 
 		
 		Button kidsBtn = (Button)findViewById(R.id.btnChildren);
+
 		kidsBtn.setOnClickListener(new OnClickListener() {
 			
 			@Override
