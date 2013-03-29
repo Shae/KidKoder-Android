@@ -1,6 +1,7 @@
 package com.klusman.kidkoder;
 
 
+import com.klusman.kidkoder.R.color;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.Parse;
@@ -71,7 +72,7 @@ public class ChildInfo extends Activity {
       	
       	Log.i("ChildInfo", "Start");
       	loadSettings();
-		setContentView(R.layout.child_info_activity);
+		setContentView(R.layout.activity_child_info);
 		Parse.initialize(this, appID , appKey);
 		
 		TVname = (TextView) findViewById(R.id.tvNAME);
@@ -134,7 +135,11 @@ public class ChildInfo extends Activity {
 		TVname.setText(fname + " " + lname);
 		TVdob.setText(dob);
 		TVgender.setText(gender);
-		
+//		if(TVgender.getText().toString().compareTo("Male")==0){
+//			TVname.setTextAppearance(_context, R.style.Text_blue);
+//		}else{
+//			TVname.setTextAppearance(_context, R.style.Text_pink);
+//		}
 		if (allergies != null){
 			TValrgy.setText("Allergies: " + allergies);
 		}else{

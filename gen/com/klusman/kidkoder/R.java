@@ -12,11 +12,16 @@ public final class R {
     }
     public static final class color {
         public static final int accent_green=0x7f040002;
+        public static final int black=0x7f040006;
+        public static final int blue=0x7f040009;
         public static final int lwd_drk_blue=0x7f040004;
         public static final int lwd_lt_blue=0x7f040005;
         public static final int lwd_purple=0x7f040003;
+        public static final int pink=0x7f04000a;
+        public static final int red=0x7f040007;
         public static final int sa_green=0x7f040000;
         public static final int stacked_green=0x7f040001;
+        public static final int yellow=0x7f040008;
     }
     public static final class drawable {
         public static final int blue_bg_tile=0x7f020000;
@@ -83,23 +88,22 @@ public final class R {
         public static final int imageGenderIcon=0x7f080019;
         public static final int imageKidAddData=0x7f080000;
         public static final int listView1=0x7f080010;
-        public static final int menu_add=0x7f08003f;
-        public static final int menu_child_list=0x7f08003d;
-        public static final int menu_delete=0x7f080041;
-        public static final int menu_edit=0x7f080040;
-        public static final int menu_home=0x7f08003e;
-        public static final int menu_quick=0x7f08003c;
-        public static final int menu_reset=0x7f080042;
-        public static final int menu_save=0x7f080043;
-        public static final int menu_settings=0x7f08003b;
+        public static final int menu_add=0x7f08003e;
+        public static final int menu_child_list=0x7f08003c;
+        public static final int menu_delete=0x7f080040;
+        public static final int menu_edit=0x7f08003f;
+        public static final int menu_home=0x7f08003d;
+        public static final int menu_quick=0x7f08003b;
+        public static final int menu_reset=0x7f080041;
+        public static final int menu_save=0x7f080042;
+        public static final int menu_settings=0x7f08003a;
         public static final int radioFemale=0x7f080008;
         public static final int radioMale=0x7f080007;
-        public static final int tab_1=0x7f080037;
-        public static final int tab_2=0x7f080038;
-        public static final int tab_3=0x7f080039;
-        public static final int tab_4=0x7f08003a;
+        public static final int tab_1=0x7f080036;
+        public static final int tab_2=0x7f080037;
+        public static final int tab_3=0x7f080038;
+        public static final int tab_4=0x7f080039;
         public static final int tabs_fragment=0x7f080035;
-        public static final int textView1=0x7f080036;
         public static final int textView2=0x7f08001f;
         public static final int titleSchool=0x7f080029;
         public static final int toggleBtn=0x7f080013;
@@ -131,23 +135,17 @@ public final class R {
         public static final int cell=0x7f030009;
         public static final int cell_allergy=0x7f03000a;
         public static final int cell_kid=0x7f03000b;
-        public static final int child_data_activity=0x7f03000c;
-        public static final int child_info_activity=0x7f03000d;
-        public static final int child_list_activity=0x7f03000e;
-        public static final int frag_add_child=0x7f03000f;
-        public static final int frag_allergies_list=0x7f030010;
-        public static final int frag_child_info=0x7f030011;
-        public static final int frag_kids=0x7f030012;
-        public static final int frag_main=0x7f030013;
-        public static final int frag_no_network=0x7f030014;
-        public static final int frag_quick_links=0x7f030015;
-        public static final int frag_settings=0x7f030016;
-        public static final int fragment_main=0x7f030017;
-        public static final int no_connection_activity=0x7f030018;
-        public static final int quick_links_activity=0x7f030019;
-        public static final int settings_activity=0x7f03001a;
-        public static final int tab=0x7f03001b;
-        public static final int tabs_fragment=0x7f03001c;
+        public static final int frag_add_child=0x7f03000c;
+        public static final int frag_allergies_list=0x7f03000d;
+        public static final int frag_child_info=0x7f03000e;
+        public static final int frag_kids=0x7f03000f;
+        public static final int frag_main=0x7f030010;
+        public static final int frag_no_network=0x7f030011;
+        public static final int frag_quick_links=0x7f030012;
+        public static final int frag_settings=0x7f030013;
+        public static final int fragment_main=0x7f030014;
+        public static final int tab=0x7f030015;
+        public static final int tabs_fragment=0x7f030016;
     }
     public static final class menu {
         public static final int activity_main=0x7f070000;
@@ -201,14 +199,15 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
-        public static final int ButtonText_blu=0x7f060004;
-        public static final int ButtonText_grn=0x7f060005;
-        public static final int ButtonText_pink=0x7f060006;
-        public static final int ButtonText_red=0x7f060003;
-        /**      <style name="myAppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <item name="android:background" >@drawable/wood</item>
-    </style> 
+        public static final int ButtonText_blu=0x7f060005;
+        public static final int ButtonText_grn=0x7f060006;
+        public static final int ButtonText_pink=0x7f060007;
+        public static final int ButtonText_red=0x7f060004;
+        public static final int ButtonText_ylw=0x7f060003;
+        public static final int Text_orng=0x7f060009;
+        public static final int Text_pink=0x7f060008;
+        /**  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int ButtonText_ylw=0x7f060002;
+        public static final int myAppTheme=0x7f060002;
     }
 }

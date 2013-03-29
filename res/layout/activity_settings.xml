@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
+        android:textColor="#000000"
         android:text="@string/parse_com_application_id_"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -24,7 +25,7 @@
         android:ems="10"
         android:inputType="textNoSuggestions"
         android:text="@string/app_id_num"
-        android:textColor="@android:color/white"
+        android:textColor="@color/blue"
         android:textSize="12sp" />
 
     <TextView
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:textColor="#000000"
         android:text="@string/parse_com_client_key_"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -46,7 +48,7 @@
         android:ems="10"
         android:inputType="textNoSuggestions"
         android:text="@string/app_key_num"
-        android:textColor="@android:color/white"
+        android:textColor="@color/blue"
         android:textSize="12sp" />
    
 
@@ -56,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:textColor="#000000"
         android:text="@string/local_school_website"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -69,7 +72,7 @@
         android:ems="10"
         android:inputType="textNoSuggestions"
         android:text="@string/school_string_address"
-        android:textColor="@android:color/white"
+        android:textColor="@color/blue"
         android:textSize="12sp" />
 
 </LinearLayout>

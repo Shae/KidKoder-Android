@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -55,11 +56,8 @@ public class ChildList extends ListActivity {
         		WindowManager.LayoutParams.FLAG_FULLSCREEN);
       	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
       	loadSettings();
-      	
       	kidlinList = new ArrayList<Kid>();
       	Parse.initialize(this, appID, appKey); 
-      	
-      	
       	getData();
 		
 	}

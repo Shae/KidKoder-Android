@@ -15,7 +15,7 @@ public class SettingsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.settings_activity);
+		setContentView(R.layout.activity_settings);
 		
 		EditText appID = (EditText)findViewById(R.id.etAppID);
 		_appID = appID.getText().toString();

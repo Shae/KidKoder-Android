@@ -20,7 +20,6 @@ public class myArrayAdapter extends ArrayAdapter<Kid>{
 	String appKey;
 	TextView textView;
 	private final ArrayList<Kid> _kidlinList ;
-	//private final Kid[] _myKidsArray;
 
 	
 	public myArrayAdapter(Context context, ArrayList<Kid> kidlinList) {
@@ -29,24 +28,22 @@ public class myArrayAdapter extends ArrayAdapter<Kid>{
 		
 		this._context = context;
 		this._kidlinList = kidlinList;
-		//this._myKidsArray = myKidsArray;
 		Log.i("Array Adapter", String.valueOf(kidlinList.size()));
 	}
  
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
- 
+
 		View rowView = inflater.inflate(R.layout.cell, parent, false);
 		textView = (TextView) rowView.findViewById(R.id.tvALRGYChildName);
-		//Log.i("listIt", kidlinList.toString());
+
 		String name = _kidlinList.get(position).getFirstname() + " " + _kidlinList.get(position).getLastName();
 		String gender = _kidlinList.get(position).getGender();
 		textView.setText(name);
 		
 		ImageView gendIcon = (ImageView) rowView.findViewById(R.id.imageGenderIcon);
-//		
-		//textView.setText(values[position]);
+
 		if(gender.compareTo("Male")  == 0){
 			gendIcon.setImageResource(R.drawable.male2);
 		}

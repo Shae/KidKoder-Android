@@ -27,7 +27,7 @@ public class NoNetwork extends Activity {
 		super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
       	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-      	setContentView(R.layout.no_connection_activity);
+      	setContentView(R.layout.activity_no_connection);
       	
       	
       	Button btn = (Button)findViewById(R.id.btnCheckConnection);

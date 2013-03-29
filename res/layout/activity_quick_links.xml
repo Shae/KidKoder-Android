@@ -7,42 +7,50 @@
 
     <Button
         android:id="@+id/BtnLocSch"
+        style="@style/ButtonText_blu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="30dp"
+        android:background="@drawable/wood_block_9patch"
         android:text="Local School Website" />
 
     <Button
         android:id="@+id/BtnPoiCon"
+        style="@style/ButtonText_grn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="50dp"
+        android:background="@drawable/wood_block_9patch"
         android:text="Poison Control" />
 
     <Button
         android:id="@+id/BtnMissChild"
+        style="@style/ButtonText_red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/wood_block_9patch"
         android:text="Missing Children" />
 
     <Button
         android:id="@+id/btnChildAbu"
+        style="@style/ButtonText_ylw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/wood_block_9patch"
         android:text="Child Abuse" />
 
 </LinearLayout>

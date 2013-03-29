@@ -3,8 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:padding="5dp" 
-    android:background="@android:color/black"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/wood_block_9patch">
 
 	    <TextView
 	        android:id="@+id/tvALRGYChildName"
@@ -15,8 +15,8 @@
 	        android:layout_marginRight="10dp"
 	        android:maxLines="1"
 	        android:text="@string/child_name_default"
-	        android:textColor="@android:color/white"
-	        android:textSize="20sp" />
+	        android:textColor="@android:color/black"
+	        android:textSize="15sp" />
 
 	    <TextView
 	        android:id="@+id/tvALRGYs"

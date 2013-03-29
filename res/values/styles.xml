@@ -17,10 +17,11 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     
-<!--     <style name="myAppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <item name="android:background" >@drawable/wood</item>
-    </style> -->
 
+    <style name="myAppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
 <style name="ButtonText_ylw">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -81,9 +82,35 @@
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">25sp</item>
-        <item name="android:shadowColor">#b400c7</item>
+        <item name="android:shadowColor">#000000</item>
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">5</item>
+    </style>
+    
+<style name="Text_pink">
+
+        <item name="android:textColor">#b400c7</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:textSize">25sp</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">8</item>
+
+    </style>
+    
+<style name="Text_orng">
+
+        <item name="android:textColor">#e44800</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:textSize">25sp</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">8</item>
+
     </style>
 </resources>

@@ -6,4 +6,9 @@
     <color name="lwd_purple">#660099</color>
     <color name="lwd_drk_blue">#003399</color>
     <color name="lwd_lt_blue">#0033ff</color>
+    <color name="black">#000000</color>
+    <color name="red">#f90600</color>
+    <color name="yellow">#e7f900</color>
+    <color name="blue">#0088f9</color>
+    <color name="pink">#b400c7</color>
 </resources>

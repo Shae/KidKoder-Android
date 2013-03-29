@@ -83,7 +83,7 @@ public class ChildDataADD extends Activity {
       	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
       	_context = this;
       	loadSettings();
-      	setContentView(R.layout.child_data_activity);
+      	setContentView(R.layout.activity_add_child);
       	Parse.initialize(this, appID, appKey); 
       	
       	buildPage();
